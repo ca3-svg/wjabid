@@ -1,0 +1,12 @@
+# Uploaded bid documents and temporary extraction artifacts
+/tmp-dec-bids/
+*.pdf
+*.zip
+*.whl
+
+# Local runtimes and generated files
+node_modules/
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
