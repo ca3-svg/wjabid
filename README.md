@@ -1,6 +1,6 @@
-# WJA Bid
+# wjabid
 
-A browser application for exploring WestJet pilot pairings, comparing schedule characteristics, and building a bid list.
+WestJet Bidding: a browser application for exploring pilot pairings, comparing schedule characteristics, and building a bid list.
 
 ## Run
 
