@@ -1,11 +1,15 @@
 # Uploaded bid documents and temporary extraction artifacts
 /tmp-dec-bids/
+/tmp/
+/usability/runs/
 *.pdf
 *.zip
 *.whl
 
 # Local runtimes and generated files
 node_modules/
+playwright-report/
+test-results/
 __pycache__/
 *.py[cod]
 .DS_Store

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WJA Bid usability finding",
+  "type": "object",
+  "required": ["id", "taskId", "platformId", "category", "title", "observation", "expected", "reproduction", "severity", "confidence", "humanValidation", "evidence"],
+  "properties": {
+    "id": { "type": "string", "description": "Stable local identifier, for example U-001." },
+    "taskId": { "type": "string" },
+    "platformId": { "type": "string" },
+    "category": { "enum": ["discoverability", "comprehension", "workflow", "responsive-layout", "touch", "accessibility", "performance", "data-integrity", "other"] },
+    "title": { "type": "string" },
+    "observation": { "type": "string", "description": "What the agent or participant visibly did or said; keep interpretation separate." },
+    "expected": { "type": "string", "description": "What the bidder was trying to do or reasonably expected." },
+    "reproduction": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "severity": { "enum": [1, 2, 3, 4], "description": "1 cosmetic; 2 minor friction; 3 blocks or risks a task; 4 critical data or task failure." },
+    "confidence": { "enum": ["low", "medium", "high"] },
+    "humanValidation": { "enum": ["not-reviewed", "confirmed", "not-reproduced", "needs-pilot-validation"] },
+    "evidence": { "type": "array", "items": { "type": "string" }, "description": "Run-relative screenshot, recording, or concise event trace paths." },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

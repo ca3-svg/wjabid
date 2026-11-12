@@ -55,10 +55,14 @@
   .input-base { background-color: #ffffff; border: 1px solid #cbd5e1; color: #1e293b; border-radius: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; outline: none; transition: all 0.2s; }
   .dark .input-base { background-color: #0f172a; border-color: #334155; color: #e2e8f0; }
   .input-base:focus { border-color: #0ea5e9; box-shadow: 0 0 0 1px #0ea5e9; }
+  :where(button, a, input, select, textarea, summary, [tabindex]):focus-visible { outline: 3px solid #0284c7; outline-offset: 2px; }
 
   .btn-base { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; transition: all 0.2s; outline: none; cursor: pointer; }
-  .btn-primary { background-color: #0ea5e9; color: #ffffff; border: none; }
-  .btn-primary:hover { background-color: #0284c7; }
+  .btn-primary { background-color: #0369a1; color: #ffffff; border: none; }
+  .btn-primary:hover { background-color: #075985; }
+  @media (max-width: 639px) {
+    #nav-left, #nav-right { display: none !important; }
+  }
   .btn-secondary { background-color: #ffffff; color: #334155; border: 1px solid #cbd5e1; }
   .dark .btn-secondary { background-color: #1e293b; color: #e2e8f0; border-color: #334155; }
   .btn-secondary:hover { background-color: #f8fafc; }
@@ -120,6 +124,9 @@
     padding: 0.75rem 0.5rem !important; 
     align-items: flex-start !important; 
   }
+  .tabulator .tabulator-cell:has(.add-pairing-button) { padding: 0.125rem 0.25rem !important; align-items: center !important; }
+  .add-pairing-button { min-width: 44px; min-height: 44px; }
+  #main-tabs .tab-btn { min-height: 44px; }
 
   input[type="time"] { color-scheme: light; }
   .dark input[type="time"] { color-scheme: dark; }
@@ -145,33 +152,38 @@
       </div>
       
       <!-- Tabs -->
-      <nav class="flex gap-1 sm:gap-2" id="main-tabs">
-        <button class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-900 dark:text-white bg-slate-100 dark:bg-dark-700 transition-colors active flex items-center gap-2" data-tab="viewer">
-          <i data-lucide="table-2" class="w-4 h-4"></i> <span class="hidden sm:inline">Viewer</span>
+      <nav class="flex gap-1 sm:gap-2" id="main-tabs" aria-label="Main navigation">
+        <button class="tab-btn px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-900 dark:text-white bg-slate-100 dark:bg-dark-700 transition-colors active flex items-center gap-1 sm:gap-2" data-tab="viewer" aria-label="Viewer" aria-current="page">
+          <i data-lucide="table-2" class="w-4 h-4" aria-hidden="true"></i> <span class="sm:hidden">View</span><span class="hidden sm:inline">Viewer</span>
         </button>
-        <button class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-700 transition-colors flex items-center gap-2" data-tab="gdo">
-          <i data-lucide="calendar-days" class="w-4 h-4"></i> <span class="hidden sm:inline">GDO Planner</span>
+        <button class="tab-btn px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-700 transition-colors flex items-center gap-1 sm:gap-2" data-tab="gdo" aria-label="GDO Planner">
+          <i data-lucide="calendar-days" class="w-4 h-4" aria-hidden="true"></i> <span class="sm:hidden">GDO</span><span class="hidden sm:inline">GDO Planner</span>
         </button>
-        <button class="tab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-700 transition-colors flex items-center gap-2" data-tab="bidder">
-          <i data-lucide="list-ordered" class="w-4 h-4"></i> <span class="hidden sm:inline">Bid Builder</span>
+        <button class="tab-btn px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-dark-700 transition-colors flex items-center gap-1 sm:gap-2" data-tab="bidder" aria-label="Bid Builder">
+          <i data-lucide="list-ordered" class="w-4 h-4" aria-hidden="true"></i> <span class="sm:hidden">Bid</span><span class="hidden sm:inline">Bid Builder</span>
         </button>
       </nav>
     </div>
     
-    <div class="flex items-center gap-2 sm:gap-3">
+    <div class="flex items-center gap-1 sm:gap-3">
       <!-- Pilot Profile Settings Trigger -->
       <button onclick="document.getElementById('cba-modal').classList.remove('hidden')" class="hidden flex items-center gap-2 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-full border border-indigo-200 dark:border-indigo-500/30 transition-colors hover:bg-indigo-100 dark:hover:bg-indigo-500/20 font-medium text-xs">
         <i data-lucide="user-cog" class="w-4 h-4"></i>
         <span class="hidden sm:inline">Pilot Profile (CBA)</span>
       </button>
 
-      <div class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-dark-900 rounded-full border border-slate-200 dark:border-dark-700 transition-colors">
-        <i data-lucide="file-text" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
-        <span id="file-label" class="text-xs text-slate-600 dark:text-slate-400 font-mono truncate max-w-[100px] sm:max-w-[200px]">No file loaded</span>
+    <div class="flex items-center gap-1 px-1.5 sm:px-3 py-1.5 bg-slate-100 dark:bg-dark-900 rounded-full border border-slate-200 dark:border-dark-700 transition-colors">
+        <i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 dark:text-slate-400" aria-hidden="true"></i>
+        <span id="file-label" class="sr-only lg:not-sr-only text-xs text-slate-600 dark:text-slate-400 font-mono truncate max-w-[200px]">No file loaded</span>
       </div>
       
-      <button onclick="clearLocalStorage()" class="hidden p-2 rounded-lg text-rose-500 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10 transition-colors text-xs font-bold items-center gap-1" id="clear-data-btn" title="Clear saved data">
+      <button onclick="clearLocalStorage()" class="hidden p-2 rounded-lg text-rose-700 hover:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-500/10 transition-colors text-xs font-bold items-center gap-1" id="clear-data-btn" title="Clear saved data">
         <i data-lucide="trash-2" class="w-4 h-4"></i> <span class="hidden sm:inline">Clear</span>
+      </button>
+
+      <button type="button" id="favorites-button" onclick="openFavoritesModal(this)" class="relative inline-flex items-center justify-center min-w-11 min-h-11 p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-amber-50 dark:hover:bg-amber-500/10 transition-colors" aria-label="Favorites, 0 saved" aria-pressed="false" aria-haspopup="dialog" aria-controls="favorites-modal" title="Saved favorites">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3z"/></svg>
+        <span id="favorites-count" class="absolute -top-0.5 -right-0.5 min-w-4 h-4 px-0.5 rounded-full bg-white dark:bg-dark-800 text-[9px] leading-4 text-center font-semibold tabular-nums shadow">0</span>
       </button>
 
       <button onclick="toggleTheme()" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-dark-700 transition-colors" aria-label="Toggle Dark Mode">
@@ -215,7 +227,7 @@
   </div>
 </div>
 
-<div id="pairing-source-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[121] flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="pairing-source-title">
+<div id="pairing-source-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[121] flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="pairing-source-title" tabindex="-1">
   <section class="bg-white dark:bg-dark-800 border border-slate-200 dark:border-dark-700 rounded-2xl shadow-2xl w-full max-w-6xl max-h-[94vh] flex flex-col overflow-hidden">
     <header class="flex items-start justify-between gap-4 p-4 sm:px-6 sm:py-5 border-b border-slate-200 dark:border-dark-700 bg-slate-50 dark:bg-dark-900/60">
       <div><div class="text-[11px] uppercase tracking-[0.16em] font-bold text-brand-600 dark:text-brand-400">Original schedule text</div><h2 id="pairing-source-title" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Pairing schedule</h2><p id="pairing-source-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1"></p></div>
@@ -225,11 +237,11 @@
   </section>
 </div>
 
-<div id="pairing-details-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[120] flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="pairing-details-title">
+<div id="pairing-details-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[120] flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="pairing-details-title" tabindex="-1">
   <section class="bg-white dark:bg-dark-800 border border-slate-200 dark:border-dark-700 rounded-2xl shadow-2xl w-full max-w-6xl max-h-[94vh] flex flex-col overflow-hidden">
     <header class="flex items-start justify-between gap-4 p-4 sm:px-6 sm:py-5 border-b border-slate-200 dark:border-dark-700 bg-slate-50 dark:bg-dark-900/60">
       <div>
-        <div class="text-[11px] uppercase tracking-[0.16em] font-bold text-brand-600 dark:text-brand-400">Pairing overview</div>
+        <div class="text-[11px] uppercase tracking-[0.16em] font-bold text-brand-700 dark:text-brand-300">Pairing overview</div>
         <h2 id="pairing-details-title" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Pairing details</h2>
         <p id="pairing-details-subtitle" class="text-sm text-slate-500 dark:text-slate-400 mt-1"></p>
       </div>
@@ -237,6 +249,31 @@
     </header>
     <div id="pairing-details-content" class="p-4 sm:p-6 overflow-y-auto custom-scrollbar space-y-6"></div>
   </section>
+</div>
+
+<div id="favorites-modal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[122] flex items-center justify-center p-2 sm:p-5" role="dialog" aria-modal="true" aria-labelledby="favorites-title" tabindex="-1">
+  <section class="bg-white dark:bg-dark-800 border border-slate-200 dark:border-dark-700 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[94vh] flex flex-col overflow-hidden">
+    <header class="flex items-start justify-between gap-4 p-4 sm:px-6 sm:py-5 border-b border-slate-200 dark:border-dark-700 bg-slate-50 dark:bg-dark-900/60">
+      <div><div class="text-[11px] uppercase tracking-[0.16em] font-bold text-amber-700 dark:text-amber-300">Saved for later</div><h2 id="favorites-title" class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Saved favorites</h2><p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Favorites are saved on this device for the currently loaded bid.</p></div>
+      <button type="button" data-close-favorites class="btn-base btn-secondary !p-2 shrink-0" aria-label="Close favorites" title="Close">✕</button>
+    </header>
+    <div id="favorites-list" class="p-3 sm:p-5 overflow-y-auto custom-scrollbar space-y-3" role="list" aria-label="Favorite pairing dates" aria-live="polite" aria-relevant="additions removals text"></div>
+  </section>
+</div>
+
+<div id="ranking-profile-save-dialog" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[130] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="ranking-profile-save-title" aria-describedby="ranking-profile-save-help" tabindex="-1">
+  <form id="ranking-profile-save-form" class="w-full max-w-md rounded-2xl border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-800 p-5 sm:p-6 shadow-2xl" onsubmit="event.preventDefault(); savePreferenceProfile()">
+    <h2 id="ranking-profile-save-title" class="text-lg font-bold text-slate-900 dark:text-white">Save ranking setup</h2>
+    <p id="ranking-profile-save-help" class="mt-2 text-sm text-slate-600 dark:text-slate-300">Give these ranking preferences a name. They are stored in this browser on this device.</p>
+    <label for="ranking-profile-name" class="block mt-4 text-sm font-medium text-slate-700 dark:text-slate-200">Setup name</label>
+    <input id="ranking-profile-name" name="profileName" type="text" maxlength="60" aria-required="true" class="input-base mt-1 w-full" autocomplete="off" aria-describedby="ranking-profile-save-help ranking-profile-name-error">
+    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Using a name that already exists replaces that saved setup.</p>
+    <p id="ranking-profile-name-error" class="hidden mt-1 text-sm text-rose-700 dark:text-rose-300" role="alert"></p>
+    <div class="mt-5 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+      <button type="button" class="btn-base btn-secondary" onclick="closePreferenceSaveDialog()">Cancel</button>
+      <button type="submit" class="btn-base btn-primary">Save setup</button>
+    </div>
+  </form>
 </div>
 
 <!-- Mock Block Schedule Modal -->
@@ -313,21 +350,25 @@
       <div class="flex flex-wrap gap-3 items-center">
         <div class="relative w-full md:w-64">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500"></i>
-          <input type="text" id="search-input" class="input-base pl-9 w-full" placeholder="Search trips, routes, layovers...">
+          <label for="search-input" class="sr-only">Search pairings, dates, routes, and layovers</label>
+          <input type="search" id="search-input" class="input-base pl-9 w-full" placeholder="Search trips, routes, layovers..." aria-label="Search pairings, dates, routes, and layovers">
         </div>
         
-        <select id="filter-base" class="input-base w-24">
+        <label for="filter-base" class="sr-only">Filter by base</label>
+        <select id="filter-base" class="input-base w-28" aria-label="Filter by base">
           <option value="">All Bases</option>
         </select>
 
-        <select id="filter-days" class="input-base w-32">
+        <label for="filter-days" class="sr-only">Filter by pairing duration</label>
+        <select id="filter-days" class="input-base w-36" aria-label="Filter by pairing duration">
           <option value="">All Durations</option>
           <option value="2">2-day Trip</option>
           <option value="3">3-day Trip</option>
           <option value="4">4-day Trip</option>
           <option value="5">5-day Trip</option>
         </select>
-        <select id="filter-layover-region" class="input-base w-36" title="Filter by layover region">
+        <label for="filter-layover-region" class="sr-only">Filter by layover region</label>
+        <select id="filter-layover-region" class="input-base w-full sm:w-48" title="Filter by layover region" aria-label="Filter by layover region">
           <option value="">All Layover Regions</option><option value="US">US</option><option value="Caribbean">Caribbean</option><option value="Canada">Canada</option><option value="Other">Other</option><option value="Unknown">Unknown</option>
         </select>
       </div>
@@ -336,12 +377,12 @@
         <summary class="text-xs font-medium text-slate-500 cursor-pointer">More filters</summary>
         <div class="flex flex-wrap gap-3 items-center py-2">
         <div class="flex items-center gap-2">
-          <span class="text-xs text-slate-500 dark:text-slate-400">RPT After</span>
-          <input type="time" id="filter-rpt-after" class="input-base py-1 px-2 w-24 text-xs" title="Report time after">
+          <label for="filter-rpt-after" class="text-xs text-slate-600 dark:text-slate-300">Report after</label>
+          <input type="time" id="filter-rpt-after" class="input-base py-1 px-2 w-28 text-xs" aria-label="Report time after">
         </div>
         <div class="flex items-center gap-2">
-          <span class="text-xs text-slate-500 dark:text-slate-400">RLS Before</span>
-          <input type="time" id="filter-rls-before" class="input-base py-1 px-2 w-24 text-xs" title="Release time before">
+          <label for="filter-rls-before" class="text-xs text-slate-600 dark:text-slate-300">Release before</label>
+          <input type="time" id="filter-rls-before" class="input-base py-1 px-2 w-28 text-xs" aria-label="Release time before">
         </div>
         </div>
       
@@ -374,15 +415,18 @@
 
     <div id="viewer-strategy-slot" class="mb-4"></div>
 
-    <div class="flex items-center gap-3 mb-3">
-      <button class="btn-base btn-secondary !py-1.5 !px-3 !text-xs" onclick="showPairingComparison()">Compare selected (<span id="compare-count">0</span>)</button>
-      <button class="text-xs text-slate-500 hover:text-rose-500" onclick="clearPairingComparison()">Clear</button>
-      <span class="text-xs text-slate-500">Each row is one operating date. Select boxes to compare; click a row to add that date to your bid.</span>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+      <div class="flex items-center gap-3 shrink-0">
+        <button class="btn-base btn-secondary !py-1.5 !px-3 !text-xs" onclick="showPairingComparison()">Compare selected (<span id="compare-count">0</span>)</button>
+        <button class="text-xs text-slate-600 hover:text-rose-700" onclick="clearPairingComparison()">Clear</button>
+      </div>
+      <span class="text-xs text-slate-600 dark:text-slate-300">Each row is one operating date. Use the checkbox to compare; select <strong>Add</strong> to place that date in your bid.</span>
     </div>
     <div id="pairing-comparison" class="hidden mb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3"></div>
 
     <!-- Table Container -->
-    <div id="pairing-table-scroll" class="flex-1"><div id="pairing-table" class="w-full text-sm"></div></div>
+    <p class="sm:hidden text-xs text-slate-500 dark:text-slate-400 mb-1">Swipe the table to see more columns.</p>
+    <div id="pairing-table-scroll" class="flex-1 min-w-0 overflow-x-auto"><div id="pairing-table" class="w-full text-sm"></div></div>
   </div>
 
   <!-- TAB 2: GDO PLANNER -->
@@ -473,51 +517,50 @@
          </div>
       </summary>
       
-      <div class="p-4 flex flex-col gap-4">
-        <div class="text-xs font-semibold uppercase tracking-wide text-slate-500">Must match</div>
-        <div class="flex flex-wrap items-center gap-4">
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center gap-1"><i data-lucide="brain-circuit" class="w-4 h-4"></i> Presets:</span>
-            <div class="flex bg-slate-100 dark:bg-dark-900 rounded-lg p-1 border border-slate-200 dark:border-dark-700 mode-toggle">
-              <button class="px-3 py-1 rounded-md text-sm font-medium transition-colors text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" data-mode="lazy" onclick="applyPreset('lazy')">
-                ☕ Lazy
-              </button>
-              <button class="px-3 py-1 rounded-md text-sm font-medium transition-colors text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 active" data-mode="efficient" onclick="applyPreset('efficient')">
-                ⚡ Efficient
-              </button>
+      <div class="p-4 flex flex-col gap-5">
+        <section id="viewer-filter-controls" aria-labelledby="viewer-filter-heading" class="space-y-3">
+          <div>
+            <h3 id="viewer-filter-heading" class="text-sm font-semibold text-slate-800 dark:text-slate-100">Remove results</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Filters hide pairings that do not match. Use ranking preferences below to change order without removing choices.</p>
+          </div>
+          <div class="flex flex-wrap items-end gap-4">
+            <fieldset class="flex items-end gap-2 border-0 p-0 m-0">
+              <legend class="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">Layover range (hours)</legend>
+              <label for="filter-min-lay" class="sr-only">Shortest layover at least (hours)</label>
+              <input type="number" id="filter-min-lay" min="0" placeholder="Min" aria-label="Shortest layover at least, hours" class="input-base py-1 px-2 w-20 text-center text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
+              <span class="text-slate-400 dark:text-slate-500" aria-hidden="true">to</span>
+              <label for="filter-max-lay" class="sr-only">Longest layover at most (hours)</label>
+              <input type="number" id="filter-max-lay" min="0" placeholder="Max" aria-label="Longest layover at most, hours" class="input-base py-1 px-2 w-20 text-center text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
+            </fieldset>
+            <label for="filter-min-credit" class="flex flex-col gap-1 text-xs font-medium text-slate-600 dark:text-slate-300">Minimum credit (hours)
+              <input type="number" id="filter-min-credit" min="0" placeholder="Any" class="input-base py-1 px-2 w-24 text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
+            </label>
+          </div>
+        </section>
+
+        <section id="viewer-ranking-controls" aria-labelledby="viewer-ranking-heading" class="space-y-4 border-t border-slate-200 dark:border-dark-700 pt-4">
+          <div>
+            <h3 id="viewer-ranking-heading" class="text-sm font-semibold text-slate-800 dark:text-slate-100">Change ranking</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Ranking-only preferences reorder matching pairings; they do not remove pairings.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="text-sm font-medium text-slate-600 dark:text-slate-400 flex items-center gap-1"><i data-lucide="brain-circuit" class="w-4 h-4" aria-hidden="true"></i> Presets:</span>
+            <div class="flex bg-slate-100 dark:bg-dark-900 rounded-lg p-1 border border-slate-200 dark:border-dark-700 mode-toggle" role="group" aria-label="Ranking presets">
+              <button type="button" class="px-3 py-1 rounded-md text-sm font-medium transition-colors text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white" data-mode="lazy" aria-pressed="false" onclick="applyPreset('lazy')">☕ Lazy</button>
+              <button type="button" class="px-3 py-1 rounded-md text-sm font-medium transition-colors text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 active" data-mode="efficient" aria-pressed="true" onclick="applyPreset('efficient')">⚡ Efficient</button>
             </div>
-            <select id="saved-ranking-profiles" class="input-base py-1 text-xs" onchange="loadPreferenceProfile(this.value)"><option value="">Saved profiles</option></select>
-            <button class="btn-base btn-secondary !py-1 !px-2 !text-xs" onclick="savePreferenceProfile()">Save setup</button>
-            <button class="btn-base btn-secondary !py-1 !px-2 !text-xs" onclick="resetPreferenceProfile()">Reset</button>
+            <label for="saved-ranking-profiles" class="sr-only">Saved ranking setups</label>
+            <select id="saved-ranking-profiles" class="input-base py-1 text-sm" onchange="loadPreferenceProfile(this.value)"><option value="">Saved setups</option></select>
+            <button type="button" class="btn-base btn-secondary !py-1 !px-2 !text-xs" onclick="openPreferenceSaveDialog()">Save setup</button>
+            <button type="button" class="btn-base btn-secondary !py-1 !px-2 !text-xs" onclick="resetPreferenceProfile()">Reset ranking</button>
+            <label for="prefer-days" class="flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-300">Preferred duration
+              <select id="prefer-days" class="input-base py-1 text-sm" onchange="saveData(); refreshViewerRanking(); if(bidTable) runBidBuilder(false)">
+                <option value="0" selected>Any</option><option value="5">5 days</option><option value="4">4–5 days</option><option value="3">3 days</option><option value="2">2 days</option>
+              </select>
+            </label>
           </div>
 
-          <div class="w-px h-6 bg-slate-200 dark:bg-dark-700 hidden md:block"></div>
-
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Duration:</span>
-            <select id="prefer-days" class="input-base py-1 text-sm w-36" onchange="saveData(); refreshViewerRanking(); if(bidTable) runBidBuilder(false)">
-              <option value="0" selected>Any duration</option>
-              <option value="5">5-day pairings</option>
-              <option value="4">4-5 day pairings</option>
-              <option value="3">3-day pairings</option>
-              <option value="2">2-day pairings</option>
-            </select>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Layover (hrs):</span>
-            <input type="number" id="filter-min-lay" placeholder="Min" class="input-base py-1 px-2 w-16 text-center text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
-            <span class="text-slate-400 dark:text-slate-500">-</span>
-            <input type="number" id="filter-max-lay" placeholder="Max" class="input-base py-1 px-2 w-16 text-center text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Min Credit:</span>
-            <input type="number" id="filter-min-credit" placeholder="Hrs" class="input-base py-1 px-2 w-16 text-center text-sm" onchange="applyFilters(); if(bidTable) runBidBuilder(false)">
-          </div>
-        </div>
-
-        <div class="text-xs font-semibold uppercase tracking-wide text-slate-500 pt-2 border-t border-slate-200 dark:border-dark-700">Ranking preferences · adjust these to try different orders</div>
+          <div class="text-xs font-semibold uppercase tracking-wide text-slate-500 pt-2 border-t border-slate-200 dark:border-dark-700">Adjust ranking preferences</div>
         <div class="grid grid-cols-1 md:grid-cols-[minmax(15rem,1fr)_minmax(12rem,0.7fr)] gap-4 items-start">
           <div>
             <label for="fatigue-profile" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Fatigue scoring view</label>
@@ -549,45 +592,46 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-3 border-t border-slate-200 dark:border-dark-700">
            <div>
               <div class="flex justify-between items-center mb-1">
-                <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Credit Priority</label>
+                <label for="weight-credit" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Credit Priority</label>
                 <span id="val-credit" class="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-1.5 rounded">8</span>
               </div>
               <input type="range" id="weight-credit" min="0" max="15" value="8" class="w-full accent-brand-500" oninput="updateWeightLabels('credit')" onchange="applyWeights()">
            </div>
            <div>
               <div class="flex justify-between items-center mb-1">
-                <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Layover Length</label>
+                <label for="weight-layover" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Layover Length</label>
                 <span id="val-layover" class="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-1.5 rounded">2</span>
               </div>
               <input type="range" id="weight-layover" min="0" max="15" value="2" class="w-full accent-brand-500" oninput="updateWeightLabels('layover')" onchange="applyWeights()">
            </div>
            <div>
               <div class="flex justify-between items-center mb-1">
-                <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Commutable Bonus</label>
+                <label for="weight-commutable" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Commutable Bonus</label>
                 <span id="val-commutable" class="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-1.5 rounded">15</span>
               </div>
               <input type="range" id="weight-commutable" min="0" max="50" step="5" value="15" class="w-full accent-brand-500" oninput="updateWeightLabels('commutable')" onchange="applyWeights()">
            </div>
            <div>
               <div class="flex justify-between items-center mb-1">
-                <label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Redeye Penalty</label>
+                <label for="weight-redeye" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Redeye Penalty</label>
                 <span id="val-redeye" class="text-xs font-mono text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-1.5 rounded">60</span>
               </div>
               <input type="range" id="weight-redeye" min="0" max="100" step="10" value="60" class="w-full accent-brand-500" oninput="updateWeightLabels('redeye')" onchange="applyWeights()">
            </div>
            <div>
-              <div class="flex justify-between items-center mb-1"><label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Daily Flight Target Fit</label><span id="val-workload" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">5</span></div>
+              <div class="flex justify-between items-center mb-1"><label for="weight-workload" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Daily Flight Target Fit</label><span id="val-workload" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">5</span></div>
               <input type="range" id="weight-workload" min="0" max="15" value="5" class="w-full accent-brand-500" oninput="updateWeightLabels('workload')" onchange="applyWeights()">
            </div>
            <div>
-              <div class="flex justify-between items-center mb-1"><label class="text-xs font-semibold text-slate-600 dark:text-slate-300">More Rest at Every Layover</label><span id="val-short-layover" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">2</span></div>
+              <div class="flex justify-between items-center mb-1"><label for="weight-short-layover" class="text-xs font-semibold text-slate-600 dark:text-slate-300">More Rest at Every Layover</label><span id="val-short-layover" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">2</span></div>
               <input type="range" id="weight-short-layover" min="0" max="10" value="2" class="w-full accent-brand-500" oninput="updateWeightLabels('short-layover')" onchange="applyWeights()">
            </div>
            <div>
-              <div class="flex justify-between items-center mb-1"><label class="text-xs font-semibold text-slate-600 dark:text-slate-300">Smaller Time-Zone Shifts</label><span id="val-timezone" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">5</span></div>
+              <div class="flex justify-between items-center mb-1"><label for="weight-timezone" class="text-xs font-semibold text-slate-600 dark:text-slate-300">Smaller Time-Zone Shifts</label><span id="val-timezone" class="text-xs font-mono text-brand-600 bg-brand-50 px-1.5 rounded">5</span></div>
               <input type="range" id="weight-timezone" min="0" max="10" value="5" class="w-full accent-brand-500" oninput="updateWeightLabels('timezone')" onchange="applyWeights()">
            </div>
         </div>
+        </section>
       </div>
     </details>
 
@@ -597,7 +641,7 @@
       <div class="w-full xl:w-auto xl:flex-1 bg-white dark:bg-dark-800 border border-slate-200 dark:border-dark-700 rounded-xl overflow-hidden shadow-sm">
         <div class="p-3 bg-slate-50 dark:bg-dark-900 border-b border-slate-200 dark:border-dark-700 font-medium text-sm text-slate-700 dark:text-slate-300 flex items-center justify-between">
           <span>Available Pairings (Ranked)</span>
-          <span class="text-xs text-slate-500 font-normal">Click a row to add to bid list</span>
+          <span class="text-xs text-slate-500 font-normal">Use Add to include a pairing date</span>
         </div>
         <div id="bid-table" class="w-full text-sm border-0! rounded-none!"></div>
       </div>
@@ -629,7 +673,7 @@
 </main>
 
 <!-- Toast Container -->
-<div id="toast" class="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium shadow-2xl z-[999] transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-none">
+<div id="toast" role="status" aria-live="polite" aria-atomic="true" class="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium shadow-2xl z-[999] transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-none">
   <i id="toast-icon" data-lucide="check-circle" class="w-5 h-5"></i>
   <span id="toast-msg"></span>
 </div>
@@ -1232,6 +1276,7 @@ let allPairings = [];
 let pdfTextLayoutVersion = 2;
 let gdoDays = new Set();      
 let bidList = [];              
+let favoriteOccurrenceIds = new Set();
 let bidMode = 'efficient';
 let pairingMonth = null;       
 let pairingTable = null;
@@ -1276,6 +1321,7 @@ function saveData() {
       pdfTextLayoutVersion,
       gdoDays: Array.from(gdoDays),
       bidList,
+      favoriteOccurrenceIds: Array.from(favoriteOccurrenceIds),
       pairingMonth,
       bidWeights,
       rankingTargets,
@@ -1297,6 +1343,10 @@ function loadData() {
     if (stored) {
       const data = JSON.parse(stored);
       allPairings = data.allPairings || [];
+      const availableOccurrenceIds = new Set(expandPairingOccurrences(allPairings).map(p => p.occurrence_id));
+      favoriteOccurrenceIds = new Set((Array.isArray(data.favoriteOccurrenceIds) ? data.favoriteOccurrenceIds : [])
+        .filter(id => availableOccurrenceIds.has(id)));
+      refreshFavoriteHeader();
       pdfTextLayoutVersion = Number(data.pdfTextLayoutVersion) || (allPairings.length ? 1 : 2);
       gdoDays = new Set(data.gdoDays || []);
       bidList = (data.bidList || []).map(p => {
@@ -1424,6 +1474,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     document.querySelectorAll('.tab-btn').forEach(b => {
       b.classList.remove('active', 'text-slate-900', 'dark:text-white', 'bg-slate-100', 'dark:bg-dark-700');
       b.classList.add('text-slate-500', 'dark:text-slate-400');
+      b.removeAttribute('aria-current');
     });
     document.querySelectorAll('.tab-content').forEach(t => {
       t.classList.add('hidden');
@@ -1432,6 +1483,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     
     btn.classList.add('active', 'text-slate-900', 'dark:text-white', 'bg-slate-100', 'dark:bg-dark-700');
     btn.classList.remove('text-slate-500', 'dark:text-slate-400');
+    btn.setAttribute('aria-current', 'page');
     
     const target = document.getElementById('tab-' + btn.dataset.tab);
     target.classList.remove('hidden');
@@ -1545,6 +1597,7 @@ async function handleFile(file) {
     fill.style.width = '75%'; pctText.textContent = '75%';
     fullText = fullText.replace(/\r\n/g, '\n');
     allPairings = parseFullText(fullText);
+    pruneFavoriteOccurrenceIds();
     pdfTextLayoutVersion = 2;
     clearPairingComparison();
     fill.style.width = '90%'; pctText.textContent = '90%';
@@ -2068,6 +2121,106 @@ function expandPairingOccurrences(pairings) {
   });
 }
 
+const FAVORITE_STAR_PATH = 'm12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3z';
+function favoriteStarMarkup(filled) {
+  return `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="${filled ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${FAVORITE_STAR_PATH}"/></svg>`;
+}
+
+function favoriteToggleMarkup(pairing) {
+  const id = pairing.occurrence_id || '';
+  const date = pairing.occurrence_date || pairing.date || 'date unknown';
+  const name = pairing.pairing_number || pairing.pairing || 'Pairing';
+  const filled = favoriteOccurrenceIds.has(id);
+  const label = filled ? `Remove ${name} on ${date} from favorites` : `Add ${name} on ${date} to favorites`;
+  return `<button type="button" class="favorite-toggle inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg ${filled ? 'text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-dark-700'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-600" data-occurrence-id="${escapeHtml(id)}" data-pairing="${escapeHtml(name)}" data-date="${escapeHtml(date)}" aria-pressed="${filled}" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}">${favoriteStarMarkup(filled)}</button>`;
+}
+
+function refreshFavoriteHeader() {
+  const button = document.getElementById('favorites-button');
+  const count = document.getElementById('favorites-count');
+  if (!button || !count) return;
+  const total = favoriteOccurrenceIds.size;
+  count.textContent = String(total);
+  button.setAttribute('aria-label', `Favorites, ${total} saved`);
+  button.setAttribute('aria-pressed', String(total > 0));
+  button.title = total ? `${total} saved favorite${total === 1 ? '' : 's'}` : 'Saved favorites';
+  const icon = button.querySelector('svg');
+  if (icon) icon.setAttribute('fill', total ? 'currentColor' : 'none');
+  button.classList.remove('text-slate-600', 'dark:text-slate-300', 'text-amber-500');
+  button.classList.add(total ? 'text-amber-500' : 'text-slate-600', ...(total ? [] : ['dark:text-slate-300']));
+}
+
+function pruneFavoriteOccurrenceIds() {
+  const available = new Set(expandPairingOccurrences(allPairings).map(pairing => pairing.occurrence_id));
+  favoriteOccurrenceIds = new Set([...favoriteOccurrenceIds].filter(id => available.has(id)));
+  refreshFavoriteHeader();
+}
+
+function togglePairingFavorite(occurrenceId) {
+  if (!occurrenceId) return;
+  if (favoriteOccurrenceIds.has(occurrenceId)) favoriteOccurrenceIds.delete(occurrenceId);
+  else favoriteOccurrenceIds.add(occurrenceId);
+  saveData();
+  refreshFavoriteHeader();
+  document.querySelectorAll('.favorite-toggle[data-occurrence-id]').forEach(button => {
+    const filled = favoriteOccurrenceIds.has(button.dataset.occurrenceId);
+    const name = button.dataset.pairing || 'Pairing';
+    const date = button.dataset.date || 'date unknown';
+    const label = filled ? `Remove ${name} on ${date} from favorites` : `Add ${name} on ${date} to favorites`;
+    button.setAttribute('aria-pressed', String(filled));
+    button.setAttribute('aria-label', label);
+    button.title = label;
+    button.innerHTML = favoriteStarMarkup(filled);
+    button.classList.remove('text-slate-600', 'dark:text-slate-300', 'text-amber-500');
+    button.classList.add(filled ? 'text-amber-500' : 'text-slate-600', ...(filled ? [] : ['dark:text-slate-300']));
+  });
+  const modal = document.getElementById('favorites-modal');
+  if (modal && !modal.classList.contains('hidden')) {
+    renderFavoritesModal();
+    document.querySelector('[data-close-favorites]')?.focus();
+  }
+}
+
+function renderFavoritesModal() {
+  const list = document.getElementById('favorites-list');
+  if (!list) return;
+  const occurrences = expandPairingOccurrences(allPairings)
+    .filter(pairing => favoriteOccurrenceIds.has(pairing.occurrence_id))
+    .sort((a,b) => (a.occurrence_date || '').localeCompare(b.occurrence_date || ''));
+  const validIds = new Set(occurrences.map(pairing => pairing.occurrence_id));
+  if (validIds.size !== favoriteOccurrenceIds.size) {
+    favoriteOccurrenceIds = validIds;
+    saveData();
+    refreshFavoriteHeader();
+  }
+  if (!occurrences.length) {
+    list.innerHTML = '<div class="rounded-xl border border-dashed border-slate-300 dark:border-dark-600 p-8 text-center"><p class="font-semibold text-slate-800 dark:text-slate-100">No favorites yet</p><p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Star a pairing date in the table to save it here.</p></div>';
+    return;
+  }
+  list.innerHTML = occurrences.map(pairing => {
+    const name = pairing.pairing_number || 'Pairing';
+    const date = pairing.occurrence_date || 'Date unknown';
+    const legCount = Object.values(pairing.days || {}).reduce((sum, legs) => sum + legs.length, 0);
+    const layovers = (pairing.layovers || []).map(layover => `${layover.location || 'Unknown'} ${layover.duration || ''}`.trim()).join(' · ') || 'No layovers listed';
+    return `<article class="rounded-xl border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-800 p-4 sm:p-5 shadow-sm" role="listitem" data-favorite-card="${escapeHtml(pairing.occurrence_id)}">
+      <div class="flex items-start justify-between gap-3"><div class="min-w-0"><h3 class="text-lg font-bold text-slate-900 dark:text-white">${escapeHtml(name)}</h3><p class="text-sm text-slate-600 dark:text-slate-300">${escapeHtml(date)} · ${escapeHtml(pairing.base || 'Base unknown')}</p></div><span class="shrink-0 text-amber-500">${favoriteStarMarkup(true)}</span></div>
+      <p class="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200 break-words">${escapeHtml(pairing.route_summary || 'Route details unavailable')}</p>
+      <div class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-300"><span>Credit: ${escapeHtml(pairing.credit_time || 'Unknown')}</span><span>${legCount} ${legCount === 1 ? 'leg' : 'legs'}</span><span class="col-span-2 break-words">Layovers: ${escapeHtml(layovers)}</span></div>
+      <div class="mt-4 flex flex-wrap items-center justify-end gap-2"><button type="button" class="btn-base btn-secondary !py-2 !px-3 !text-sm" data-favorite-details="${escapeHtml(pairing.occurrence_id)}" aria-label="View details for ${escapeHtml(name)} on ${escapeHtml(date)}">Details</button><button type="button" class="btn-base btn-secondary !py-2 !px-3 !text-sm text-rose-700 dark:text-rose-300" data-favorite-remove="${escapeHtml(pairing.occurrence_id)}" aria-label="Remove ${escapeHtml(name)} on ${escapeHtml(date)} from favorites">Remove</button></div>
+    </article>`;
+  }).join('');
+}
+
+function openFavoritesModal(opener = null) {
+  const modal = document.getElementById('favorites-modal');
+  renderFavoritesModal();
+  openAccessiblePairingDialog(modal, '[data-close-favorites]', opener || document.getElementById('favorites-button'));
+}
+
+function closeFavoritesModal() {
+  closeAccessiblePairingDialog(document.getElementById('favorites-modal'));
+}
+
 // =====================================================================
 // FORMATTERS & NEW WINDOW HANDLER
 // =====================================================================
@@ -2084,7 +2237,50 @@ function legTimezoneShift(leg, date) {
   return from == null || to == null ? null : Math.abs(to - from) / 60;
 }
 
-function showOriginalPairingText(p) {
+let activePairingDialog = null;
+let pairingDialogOpener = null;
+const pairingDialogFocusSelector = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], summary, [tabindex]:not([tabindex="-1"])';
+
+function openAccessiblePairingDialog(dialog, initialFocusSelector, opener = null) {
+  if (activePairingDialog && activePairingDialog !== dialog) closeAccessiblePairingDialog(activePairingDialog);
+  pairingDialogOpener = opener || document.activeElement;
+  activePairingDialog = dialog;
+  dialog.classList.remove('hidden');
+  document.body.classList.add('overflow-hidden');
+  const initialFocus = dialog.querySelector(initialFocusSelector) || dialog.querySelector('button') || dialog;
+  initialFocus.focus();
+}
+
+function closeAccessiblePairingDialog(dialog) {
+  if (!dialog || activePairingDialog !== dialog) return;
+  dialog.classList.add('hidden');
+  activePairingDialog = null;
+  document.body.classList.remove('overflow-hidden');
+  const opener = pairingDialogOpener;
+  pairingDialogOpener = null;
+  if (opener && typeof opener.focus === 'function') opener.focus();
+}
+
+function trapPairingDialogFocus(event) {
+  if (!activePairingDialog || event.key !== 'Tab') return;
+  const focusable = Array.from(activePairingDialog.querySelectorAll(pairingDialogFocusSelector))
+    .filter(element => !element.hidden && !element.closest('[hidden]'));
+  if (!focusable.length) {
+    event.preventDefault();
+    activePairingDialog.focus();
+    return;
+  }
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (event.shiftKey && (document.activeElement === first || document.activeElement === activePairingDialog)) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !activePairingDialog.contains(document.activeElement))) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function showOriginalPairingText(p, opener = null) {
   if (!p) return;
   closePairingDetails();
   const modal = document.getElementById('pairing-source-modal');
@@ -2095,17 +2291,14 @@ function showOriginalPairingText(p) {
   title.textContent = 'Trip ' + (p.trip_number || '—') + ' · ' + (p.pairing_number || 'Pairing');
   subtitle.textContent = 'Selected operating date: ' + selectedDate;
   content.innerHTML = '<div class="max-w-full overflow-x-auto rounded-xl border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-900 p-4"><pre class="m-0 w-max min-w-full whitespace-pre font-mono text-sm leading-6 text-slate-700 dark:text-slate-300">' + escapeHtml(p.original_text || '(No original schedule text is available for this pairing.)') + '</pre></div>';
-  modal.classList.remove('hidden');
-  document.body.classList.add('overflow-hidden');
-  document.querySelector('[data-close-pairing-source]').focus();
+  openAccessiblePairingDialog(modal, '[data-close-pairing-source]', opener);
 }
 
 function closePairingSource() {
-  document.getElementById('pairing-source-modal').classList.add('hidden');
-  document.body.classList.remove('overflow-hidden');
+  closeAccessiblePairingDialog(document.getElementById('pairing-source-modal'));
 }
 
-function showPairingDetails(p) {
+function showPairingDetails(p, opener = null) {
   if (!p) return;
   closePairingSource();
   const modal = document.getElementById('pairing-details-modal');
@@ -2124,7 +2317,7 @@ function showPairingDetails(p) {
     } catch (_) { return sum; }
   }, 0);
   const value = text => escapeHtml(text == null || text === '' ? 'Unknown' : text);
-  const metric = (label, val, emphasis) => '<div class="rounded-xl border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-800 p-3 sm:p-4 min-w-0"><div class="text-[10px] sm:text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400">' + label + '</div><div class="mt-1 font-semibold ' + (emphasis || 'text-slate-900 dark:text-white') + ' break-words">' + value(val) + '</div></div>';
+  const metric = (label, val, emphasis) => '<div class="rounded-xl border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-800 p-3 sm:p-4 min-w-0"><div class="text-[10px] sm:text-[11px] uppercase tracking-wide text-slate-600 dark:text-slate-400">' + label + '</div><div class="mt-1 font-semibold ' + (emphasis || 'text-slate-900 dark:text-white') + ' break-words">' + value(val) + '</div></div>';
   title.textContent = 'Trip ' + (p.trip_number || '—') + ' · ' + (p.pairing_number || 'Pairing');
   subtitle.textContent = selectedDate + ' · ' + (p.base || 'Base unknown') + ' base';
 
@@ -2152,14 +2345,14 @@ function showPairingDetails(p) {
     '</div></section>';
 
   const fatiguePart = (label, score) => metric(label, score == null ? 'Unknown' : score.toFixed(1) + ' / 100');
-  const fatigueDetails = '<section class="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/60 dark:bg-indigo-900/10 p-4 space-y-3"><div class="flex flex-wrap items-start justify-between gap-2"><div><h3 class="font-semibold text-slate-900 dark:text-white">Schedule fatigue exposure</h3><p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">' + value(fatigue.label) + ' · ' + (fatigue.score == null ? 'No score from available inputs' : fatigue.score.toFixed(1) + ' / 100') + ' · ' + fatigue.knownComponents + ' of 4 factors available</p></div><span class="text-[10px] uppercase tracking-wide font-semibold text-indigo-700 dark:text-indigo-300">Higher = more exposure</span></div><div class="grid grid-cols-2 sm:grid-cols-4 gap-2">' +
+  const fatigueDetails = '<section class="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/60 dark:bg-indigo-900/10 p-4 space-y-3"><div class="flex flex-wrap items-start justify-between gap-2"><div><h3 class="font-semibold text-slate-900 dark:text-white">Schedule fatigue exposure</h3><p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">' + value(fatigue.label) + ' · ' + (fatigue.score == null ? 'No score from available inputs' : fatigue.score.toFixed(1) + ' / 100') + ' · ' + fatigue.knownComponents + ' of 4 factors available</p></div><span class="text-[10px] uppercase tracking-wide font-semibold text-indigo-700 dark:text-indigo-300">Higher = more exposure</span></div><div class="grid grid-cols-2 sm:grid-cols-4 gap-2">' +
     fatiguePart('Recovery · layover lengths', fatigue.components.recovery) +
     fatiguePart('Night-time flight endpoints', fatigue.components.nightTiming) +
     fatiguePart('Flights per duty day', fatigue.components.workload) +
     fatiguePart('Largest time-zone shift', fatigue.components.timezone) +
     '</div><p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">' + value(FATIGUE_SCORING_PROFILES[fatigueScoringMethod].description) + ' This schedule-only comparison does not include report/release at every duty, actual sleep, commuting, prior or following duties, or individual differences. It is not a validated fatigue model or fitness-for-duty result.</p><details class="rounded-lg border border-indigo-200 dark:border-indigo-800 bg-white/70 dark:bg-dark-800/70 p-3"><summary class="cursor-pointer text-xs font-semibold text-slate-700 dark:text-slate-200">How each component is calculated</summary><ul class="mt-2 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">' + Object.entries(FATIGUE_COMPONENT_FORMULAS).map(([key, formula]) => '<li><strong>' + value({recovery:'Recovery',nightTiming:'Night timing',workload:'Workload',timezone:'Time-zone'}[key]) + ':</strong> ' + value(formula) + '</li>').join('') + '<li><strong>Balanced:</strong> arithmetic mean of the available components; missing components are excluded and the available count is shown above.</li></ul></details></section>';
 
-  const itineraryRows = dutyDays.map((dayNum, dayIndex) => {
+  const itineraryByDay = dutyDays.map((dayNum, dayIndex) => {
     const dateObj = new Date(selectedDate + 'T12:00:00Z');
     if (!Number.isNaN(dateObj.getTime())) dateObj.setUTCDate(dateObj.getUTCDate() + dayNum - 1);
     const dayDate = Number.isNaN(dateObj.getTime()) ? 'Date unknown' : dateObj.toISOString().slice(0, 10);
@@ -2183,36 +2376,81 @@ function showPairingDetails(p) {
     const layover = p.layovers?.[dayIndex];
     const layoverRow = layover ? '<tr class="border-b border-slate-200 dark:border-dark-700 bg-amber-50 dark:bg-amber-500/10"><td colspan="7" class="px-3 py-2.5 text-sm text-amber-900 dark:text-amber-200"><span class="font-semibold">Rest / layover at ' + value(layover.location) + '</span><span class="float-right font-semibold tabular-nums">' + value(layover.duration) + '</span></td></tr>' : '';
     const dayHeader = '<tr class="bg-slate-50 dark:bg-dark-900/70"><th colspan="7" class="px-3 py-2.5 text-left"><span class="font-bold text-slate-900 dark:text-white">Day ' + dayNum + ' · ' + value(dayDate) + '</span><span class="float-right text-xs font-medium text-slate-500 dark:text-slate-400">' + legs.length + (legs.length === 1 ? ' leg' : ' legs') + ' · ' + formatBlockMinutes(dayBlockMinutes) + ' block</span></th></tr>';
-    return dayHeader + (legRows || '<tr><td colspan="7" class="px-3 py-3 text-sm text-slate-500">No parsed flight legs for this duty day.</td></tr>') + layoverRow;
-  }).join('');
-  const itinerary = '<section aria-label="Day-by-day itinerary" class="space-y-3"><div><h3 class="text-base font-bold text-slate-900 dark:text-white">Day-by-day itinerary</h3><p class="text-xs text-slate-500 dark:text-slate-400">Flight details are organized by duty day. Time zone shows the local UTC offset change for each leg.</p></div><div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-dark-700"><table class="w-full min-w-[740px] border-collapse text-left"><thead class="bg-slate-100 dark:bg-dark-900 text-[11px] uppercase tracking-wide text-slate-500 dark:text-slate-400"><tr>' +
+    const mobileLegs = legs.map(leg => {
+      const shift = legTimezoneShift(leg, dayDate);
+      const tzLabel = shift == null ? 'Unknown' : (shift > 0 ? '+' : '') + shift + 'h';
+      return '<article class="rounded-lg border border-slate-200 dark:border-dark-700 bg-white dark:bg-dark-800 p-3"><div class="flex items-start justify-between gap-3"><div><div class="text-[11px] uppercase tracking-wide text-slate-600">Flight</div><div class="font-bold text-slate-900 dark:text-white">' + value(leg.flight_number) + (leg.is_deadhead ? ' <span class="text-amber-700 dark:text-amber-300">· DH</span>' : '') + '</div></div><div class="text-right"><div class="text-[11px] uppercase tracking-wide text-slate-600">Block</div><div class="font-semibold tabular-nums">' + value(leg.duration) + '</div></div></div><div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-sm"><div><div class="text-[11px] uppercase tracking-wide text-slate-600">From</div><div class="font-medium">' + value(leg.dep_station) + ' · ' + value(leg.dep_time) + '</div></div><div><div class="text-[11px] uppercase tracking-wide text-slate-600">To</div><div class="font-medium">' + value(leg.arr_station) + ' · ' + value(leg.arr_time) + '</div></div><div class="col-span-2"><div class="text-[11px] uppercase tracking-wide text-slate-600">Time-zone shift</div><div>' + value(tzLabel) + '</div></div></div></article>';
+    }).join('');
+    const mobileLayover = layover ? '<div class="rounded-lg border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-500/10 px-3 py-2.5 text-sm text-amber-900 dark:text-amber-200 flex items-center justify-between gap-3"><span class="font-semibold">Rest / layover · ' + value(layover.location) + '</span><span class="font-semibold tabular-nums">' + value(layover.duration) + '</span></div>' : '';
+    const mobileDay = '<section class="sm:hidden space-y-2" aria-label="Day ' + dayNum + ' itinerary"><header class="rounded-lg bg-slate-100 dark:bg-dark-900 px-3 py-2 flex items-center justify-between gap-3"><span class="font-bold text-slate-900 dark:text-white">Day ' + dayNum + ' · ' + value(dayDate) + '</span><span class="text-xs font-medium text-slate-500 dark:text-slate-400">' + legs.length + (legs.length === 1 ? ' leg' : ' legs') + ' · ' + formatBlockMinutes(dayBlockMinutes) + ' block</span></header>' + (mobileLegs || '<p class="text-sm text-slate-500">No parsed flight legs for this duty day.</p>') + mobileLayover + '</section>';
+    return {table: dayHeader + (legRows || '<tr><td colspan="7" class="px-3 py-3 text-sm text-slate-500">No parsed flight legs for this duty day.</td></tr>') + layoverRow, mobile: mobileDay};
+  });
+  const itineraryRows = itineraryByDay.map(day => day.table).join('');
+  const mobileItinerary = itineraryByDay.map(day => day.mobile).join('');
+  const itinerary = '<section aria-label="Day-by-day itinerary" class="space-y-3"><div><h3 class="text-base font-bold text-slate-900 dark:text-white">Day-by-day itinerary</h3><p class="text-xs text-slate-500 dark:text-slate-400">Flight details are grouped by duty day. Each leg shows local times, block, and time-zone shift.</p></div><div class="hidden sm:block overflow-x-auto rounded-xl border border-slate-200 dark:border-dark-700"><table class="w-full min-w-[740px] border-collapse text-left"><thead class="bg-slate-100 dark:bg-dark-900 text-[11px] uppercase tracking-wide text-slate-600 dark:text-slate-400"><tr>' +
     ['Flight','From','To','Departure','Arrival','Block','Time zone'].map(label => '<th scope="col" class="px-3 py-2.5 font-semibold whitespace-nowrap">' + label + '</th>').join('') +
-    '</tr></thead><tbody>' + itineraryRows + '</tbody></table></div></section>';
+    '</tr></thead><tbody>' + itineraryRows + '</tbody></table></div><div class="sm:hidden space-y-4">' + mobileItinerary + '</div></section>';
 
   const warnings = p.warnings?.length ? '<section class="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 p-4"><h3 class="font-semibold text-amber-900 dark:text-amber-200">Review before bidding</h3><p class="mt-1 text-xs text-amber-800 dark:text-amber-300">These are automated checks; confirm details against the official bid package.</p><ul class="list-disc pl-5 mt-2 text-sm text-amber-800 dark:text-amber-300">' + p.warnings.map(w => '<li>' + value(w.rule_title || w.message) + '</li>').join('') + '</ul></section>' : '<div class="rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-200">No automated bid-check warnings found.</div>';
   content.innerHTML = summary + itinerary + fatigueDetails + warnings;
-  modal.classList.remove('hidden');
-  document.body.classList.add('overflow-hidden');
-  document.querySelector('[data-close-pairing-details]').focus();
+  openAccessiblePairingDialog(modal, '[data-close-pairing-details]', opener);
 }
 
 function closePairingDetails() {
-  document.getElementById('pairing-details-modal').classList.add('hidden');
-  document.body.classList.remove('overflow-hidden');
+  closeAccessiblePairingDialog(document.getElementById('pairing-details-modal'));
 }
 
 document.querySelectorAll('[data-close-pairing-details]').forEach(button => button.addEventListener('click', closePairingDetails));
 document.querySelectorAll('[data-close-pairing-source]').forEach(button => button.addEventListener('click', closePairingSource));
+document.querySelectorAll('[data-close-favorites]').forEach(button => button.addEventListener('click', closeFavoritesModal));
 document.getElementById('pairing-source-modal').addEventListener('click', e => {
   if (e.target.id === 'pairing-source-modal') closePairingSource();
 });
 document.getElementById('pairing-details-modal').addEventListener('click', e => {
   if (e.target.id === 'pairing-details-modal') closePairingDetails();
 });
+document.getElementById('favorites-modal').addEventListener('click', e => {
+  if (e.target.id === 'favorites-modal') closeFavoritesModal();
+});
+document.getElementById('favorites-list').addEventListener('click', e => {
+  const removeButton = e.target.closest('[data-favorite-remove]');
+  if (removeButton) {
+    togglePairingFavorite(removeButton.dataset.favoriteRemove);
+    return;
+  }
+  const detailsButton = e.target.closest('[data-favorite-details]');
+  if (detailsButton) {
+    const pairing = expandPairingOccurrences(allPairings).find(item => item.occurrence_id === detailsButton.dataset.favoriteDetails);
+    if (!pairing) return;
+    closeFavoritesModal();
+    showPairingDetails(pairing, document.getElementById('favorites-button'));
+  }
+});
+document.getElementById('ranking-profile-save-dialog').addEventListener('click', e => {
+  if (e.target.id === 'ranking-profile-save-dialog') closePreferenceSaveDialog();
+});
 document.addEventListener('keydown', e => {
-  if (e.key !== 'Escape') return;
-  if (!document.getElementById('pairing-source-modal').classList.contains('hidden')) closePairingSource();
-  else if (!document.getElementById('pairing-details-modal').classList.contains('hidden')) closePairingDetails();
+  const saveDialog = document.getElementById('ranking-profile-save-dialog');
+  if (saveDialog && !saveDialog.classList.contains('hidden')) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closePreferenceSaveDialog();
+      return;
+    }
+    if (e.key === 'Tab') {
+      trapPreferenceSaveDialogFocus(e);
+    }
+    return;
+  }
+  if (activePairingDialog) {
+    if (e.key === 'Escape') {
+      if (activePairingDialog.id === 'pairing-source-modal') closePairingSource();
+      else if (activePairingDialog.id === 'favorites-modal') closeFavoritesModal();
+      else closePairingDetails();
+      return;
+    }
+    trapPairingDialogFocus(e);
+  }
 });
 
 function flightsFormatter(cell) {
@@ -2289,6 +2527,20 @@ function populateBaseFilter() {
   }
 }
 
+const tabulatorFilterLabelObservers = new WeakMap();
+function labelTabulatorHeaderFilters(tableElement) {
+  if (!tableElement) return;
+  const applyLabels = () => tableElement.querySelectorAll('.tabulator-header-filter input, .tabulator-header-filter select').forEach(control => {
+    const header = control.closest('.tabulator-col')?.querySelector('.tabulator-col-title')?.textContent?.trim();
+    if (header && !control.getAttribute('aria-label')) control.setAttribute('aria-label', 'Filter ' + header);
+  });
+  applyLabels();
+  if (typeof MutationObserver === 'undefined' || tabulatorFilterLabelObservers.has(tableElement)) return;
+  const observer = new MutationObserver(applyLabels);
+  observer.observe(tableElement, {childList: true, subtree: true});
+  tabulatorFilterLabelObservers.set(tableElement, observer);
+}
+
 function renderPairingTable() {
   if (pairingTable) pairingTable.destroy();
   _detailsCache = [];
@@ -2347,27 +2599,34 @@ function renderPairingTable() {
     initialSort: [{column:'rank_score', dir:'desc'}],
     columns: [
       {title:'Compare', field:'occurrence_id', width:65, hozAlign:'center', headerSort:false, formatter: cell => `<input type="checkbox" class="compare-choice" aria-label="Compare this operating date" data-instance-id="${escapeHtml(cell.getValue())}" ${comparisonIds.has(cell.getValue()) ? 'checked' : ''}>`, visible:true},
+      {title:'Favorite', field:'occurrence_id', width:64, hozAlign:'center', headerSort:false,
+        formatter: cell => favoriteToggleMarkup(cell.getRow().getData()),
+        cellClick: (e, cell) => {e.stopPropagation(); togglePairingFavorite(cell.getRow().getData().occurrence_id);}, visible:true},
       {title:'Trip', field:'trip', width:60, frozen:true, headerFilter:true, visible: false},
       {
         title:'Pairing', field:'pairing', width:85, frozen:true, headerFilter:true, visible: true,
         formatter: function(cell) {
-          return `<div class="pairing-link group text-brand-600 dark:text-brand-400 font-bold hover:underline cursor-pointer flex items-center gap-1.5" title="Click to view original schedule text">${escapeHtml(cell.getValue())} <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>`;
+          const row = cell.getRow().getData();
+          return `<button type="button" class="pairing-link group text-brand-700 dark:text-brand-300 font-bold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 flex items-center gap-1.5 bg-transparent border-0 p-0" aria-haspopup="dialog" aria-label="View original schedule for ${escapeHtml(row.pairing)} on ${escapeHtml(row.date)}" title="View original schedule text">${escapeHtml(cell.getValue())} <span aria-hidden="true" class="text-xs">↗</span></button>`;
         },
         cellClick: function(e, cell) {
           e.stopPropagation();
           const raw = cell.getRow().getData()._raw;
-          if (raw) showOriginalPairingText(raw);
+          if (raw) showOriginalPairingText(raw, e.target?.closest?.('.pairing-link'));
         }
       },
       {title:'Date', field:'date', width:100, headerFilter:true, visible: true},
+      {title:'Add', field:'occurrence_id', width:68, hozAlign:'center', headerSort:false,
+        formatter: cell => {const row=cell.getRow().getData(); return `<button type="button" class="btn-base btn-primary !py-1 !px-2 !text-xs add-pairing-button" aria-label="Add ${escapeHtml(row.pairing)} on ${escapeHtml(row.date)} to bid list">Add</button>`;},
+        cellClick: (e, cell) => {e.stopPropagation(); addToBid(cell.getRow().getData()._raw);}},
       {title:'Details', field:'occurrence_id', width:70, hozAlign:'center', headerSort:false,
-        formatter: cell => '<button type="button" class="pairing-detail-toggle text-brand-600 hover:text-brand-800 px-2 py-1" aria-label="View formatted pairing details" aria-haspopup="dialog" title="Open formatted pairing details">Details</button>',
-        cellClick: (e, cell) => { e.stopPropagation(); showPairingDetails(cell.getRow().getData()._raw); }},
+        formatter: cell => {const row=cell.getRow().getData(); return `<button type="button" class="pairing-detail-toggle text-brand-700 hover:text-brand-900 dark:text-brand-300 dark:hover:text-brand-200 px-2 py-1" aria-label="View formatted details for ${escapeHtml(row.pairing)} on ${escapeHtml(row.date)}" aria-haspopup="dialog" title="Open formatted pairing details">Details</button>`;},
+        cellClick: (e, cell) => { e.stopPropagation(); showPairingDetails(cell.getRow().getData()._raw, e.target?.closest?.('.pairing-detail-toggle')); }},
       {title:'Route', field:'route', minWidth:150, headerFilter:true, visible: true},
       {title:'Score', field:'rank_score', width:75, sorter:'number', hozAlign:'right', visible:true,
         formatter: cell => `<span title="${escapeHtml(cell.getRow().getData().score_reason)}">${Number(cell.getValue() || 0).toFixed(1)}</span>`},
       {title:'Fatigue', field:'fatigue_score', width:85, sorter:'number', hozAlign:'right', visible:true,
-        formatter: cell => cell.getValue() == null ? '<span class="text-slate-400" title="Insufficient schedule data">Unknown</span>' : `<span title="${escapeHtml(cell.getRow().getData().score_reason)}">${Number(cell.getValue()).toFixed(0)}<span class="text-[10px] text-slate-400">/100</span></span>`},
+        formatter: cell => cell.getValue() == null ? '<span class="text-slate-400" title="Insufficient schedule data">Unknown</span>' : `<span title="${escapeHtml(cell.getRow().getData().score_reason)}">${Number(cell.getValue()).toFixed(0)}<span class="text-[10px] text-slate-600 dark:text-slate-300">/100</span></span>`},
       {title:'Base', field:'base', width:60, headerFilter:true, visible: false},
       {title:'Days', field:'days', width:60, hozAlign:'center', sorter:'number', headerFilter:'number', headerFilterPlaceholder:'≥', headerFilterFunc:'>=', visible: true},
       {title:'TAFB', field:'tafb', width:80, headerFilter:true, visible: false},
@@ -2398,11 +2657,8 @@ function renderPairingTable() {
     ]
   });
 
-  pairingTable.on('rowClick', (e, row) => {
-    if (e.target.closest('.pairing-link, .pairing-detail-toggle, .compare-choice')) return;
-    addToBid(row.getData()._raw);
-  });
   const tableElement = document.getElementById('pairing-table');
+  labelTabulatorHeaderFilters(tableElement);
   if (!tableElement.dataset.compareListener) {
     tableElement.addEventListener('change', e => {
       if (e.target.matches('.compare-choice')) togglePairingComparison(e.target.dataset.instanceId, e.target.checked);
@@ -2710,6 +2966,7 @@ function applyPreset(mode) {
   syncSlidersToWeights();
   
   document.querySelectorAll('.mode-toggle button').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false');
     if (b.dataset.mode === mode) {
       b.classList.add('bg-brand-50', 'dark:bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400');
       b.classList.remove('text-slate-500', 'dark:text-slate-400');
@@ -2734,10 +2991,26 @@ function renderPreferenceProfiles() {
 }
 
 function savePreferenceProfile() {
-  const name = prompt('Name this ranking setup:');
-  if (!name || !name.trim()) return;
+  const nameField = document.getElementById('ranking-profile-name');
+  const error = document.getElementById('ranking-profile-name-error');
+  const name = nameField ? nameField.value : '';
+  if (!name || !name.trim()) {
+    if (error) {
+      error.textContent = 'Enter a name for this setup.';
+      error.classList.remove('hidden');
+      nameField?.focus();
+    }
+    return false;
+  }
   const cleanName = name.trim().replace(/[&<>"']/g, '');
-  if (!cleanName) return;
+  if (!cleanName) {
+    if (error) {
+      error.textContent = 'Use at least one letter or number in the setup name.';
+      error.classList.remove('hidden');
+      nameField?.focus();
+    }
+    return false;
+  }
   preferenceProfiles[cleanName] = {
     weights: {...bidWeights},
     targets: {...rankingTargets},
@@ -2747,6 +3020,55 @@ function savePreferenceProfile() {
   renderPreferenceProfiles();
   document.getElementById('saved-ranking-profiles').value = cleanName;
   saveData();
+  closePreferenceSaveDialog();
+  showToast('Ranking setup saved: ' + cleanName);
+  return true;
+}
+
+let preferenceDialogOpener = null;
+
+function openPreferenceSaveDialog() {
+  const dialog = document.getElementById('ranking-profile-save-dialog');
+  const nameField = document.getElementById('ranking-profile-name');
+  const error = document.getElementById('ranking-profile-name-error');
+  preferenceDialogOpener = document.activeElement;
+  if (nameField) nameField.value = '';
+  if (error) {
+    error.textContent = '';
+    error.classList.add('hidden');
+  }
+  dialog.classList.remove('hidden');
+  document.body.classList.add('overflow-hidden');
+  nameField?.focus();
+}
+
+function trapPreferenceSaveDialogFocus(event) {
+  if (event.key !== 'Tab') return;
+  const dialog = document.getElementById('ranking-profile-save-dialog');
+  const focusable = Array.from(dialog.querySelectorAll('input:not([disabled]), button:not([disabled])'));
+  if (!focusable.length) {
+    event.preventDefault();
+    dialog.focus();
+    return;
+  }
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function closePreferenceSaveDialog() {
+  const dialog = document.getElementById('ranking-profile-save-dialog');
+  if (dialog.classList.contains('hidden')) return;
+  dialog.classList.add('hidden');
+  document.body.classList.remove('overflow-hidden');
+  const opener = preferenceDialogOpener;
+  preferenceDialogOpener = null;
+  if (opener && typeof opener.focus === 'function') opener.focus();
 }
 
 function loadPreferenceProfile(name) {
@@ -2813,6 +3135,7 @@ function applyWeights() {
   rankingTargets.minimumLayoverHours = Math.max(0, Number(document.getElementById('target-minimum-layover').value) || 0);
   
   document.querySelectorAll('.mode-toggle button').forEach(b => {
+    b.setAttribute('aria-pressed', 'false');
     b.classList.remove('bg-brand-50', 'dark:bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400');
     b.classList.add('text-slate-500', 'dark:text-slate-400');
   });
@@ -3221,15 +3544,18 @@ function runBidBuilder(autoFill = false) {
         formatter: function(cell) {
           const data = cell.getRow().getData();
           const warnHtml = (data.warnings && data.warnings.length) ? `<div class="rule-warn-badge ml-2" title="${escapeHtml(data.warnings.map(w=>w.rule_title).join('\n'))}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-70"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> ${data.warnings.length}</div>` : '';
-          return `<div class="flex items-center"><div class="pairing-link group text-brand-600 dark:text-brand-400 font-bold hover:underline cursor-pointer flex items-center gap-1.5" title="Click to view original schedule text">${escapeHtml(cell.getValue())} <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></div>${warnHtml}</div>`;
+          return `<div class="flex items-center"><button type="button" class="pairing-link group text-brand-700 dark:text-brand-300 font-bold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 flex items-center gap-1.5 bg-transparent border-0 p-0" aria-haspopup="dialog" aria-label="View original schedule for ${escapeHtml(data.pairing)} on ${escapeHtml(data.date)}" title="View original schedule text">${escapeHtml(cell.getValue())} <span aria-hidden="true" class="text-xs">↗</span></button>${warnHtml}</div>`;
         },
         cellClick: function(e, cell) {
           e.stopPropagation();
           const raw = cell.getRow().getData()._raw;
-          if (raw) showOriginalPairingText(raw);
+          if (raw) showOriginalPairingText(raw, e.target?.closest?.('.pairing-link'));
         }
       },
       {title:'Date', field:'date', width:100, headerFilter:true, visible: true},
+      {title:'Add', field:'occurrence_id', width:68, hozAlign:'center', headerSort:false,
+        formatter: cell => {const row=cell.getRow().getData(); return `<button type="button" class="btn-base btn-primary !py-1 !px-2 !text-xs add-pairing-button" aria-label="Add ${escapeHtml(row.pairing)} on ${escapeHtml(row.date)} to bid list">Add</button>`;},
+        cellClick: (e, cell) => {e.stopPropagation(); addToBid(cell.getRow().getData()._raw);}},
       {title:'Days', field:'days', width:55, hozAlign:'center', sorter:'number', headerFilter:'number', headerFilterPlaceholder:'≥', headerFilterFunc:'>=', visible: true},
       {title:'Score', field:'score', width:110, hozAlign:'right', sorter:'number', visible: true,
         formatter: function(cell) {
@@ -3253,11 +3579,7 @@ function runBidBuilder(autoFill = false) {
       {title:'Release', field:'release', width:70, headerFilter:true, headerFilterPlaceholder:'HH:MM', visible: true},
     ]
   });
-
-  bidTable.on('rowClick', (e, row) => {
-    if (e.target.closest('.pairing-link')) return;
-    addToBid(row.getData()._raw);
-  });
+  labelTabulatorHeaderFilters(document.getElementById('bid-table'));
 
   if (autoFill) {
     bidList = [];

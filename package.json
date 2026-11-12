@@ -1,0 +1,14 @@
+{
+  "name": "wja-bid",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/quality.test.cjs tests/usability-harness.test.cjs",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e",
+    "test:e2e:list": "playwright test --list"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0"
+  }
+}

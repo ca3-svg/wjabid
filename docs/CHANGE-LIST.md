@@ -4,6 +4,12 @@
 
 Quality testing and corrective changes are recorded in [QUALITY-REPORT.md](QUALITY-REPORT.md). The regression suite is in `tests/quality.test.cjs`.
 
+- Add a local agent usability harness with seven bidder tasks, desktop/iPhone/iPad device profiles, isolated agent and evaluator briefs, structured issue records, and an allowlisted local server for private-network device sessions. Agent findings are explicitly separate from pilot validation.
+- Add a human usability study kit for moderated pilot sessions, including neutral task cards, consent and privacy guidance, evidence capture, and device/accessibility checks. It prepares human research; it does not claim participants were recruited or tested.
+- Add and execute a local Playwright suite for desktop, phone-sized, and iPad-sized Chromium and WebKit runs. It uses synthetic schedule data, captures screenshots and axe findings, and checks core pairing/bid tasks, accessible filter labels, and page overflow. All eight emulated profiles pass; see [QUALITY-REPORT.md](QUALITY-REPORT.md) for evidence and the physical-device limits.
+- Hide floating tab arrows on phone widths, stack comparison controls, and show a horizontal-swipe hint above the wide pairing table.
+- Add date-specific favorites: an outline/filled star column, saved per-occurrence state in the existing local data, and a top-right star/count that opens a responsive Favorites modal with route, credit, legs, layovers, Details, and Remove actions.
+
 - Show one row per pairing operating date. M302W now has separate choices for Dec 8, 15, 22, and 29, 2026.
 - Keep the chosen date independent in the Bid Builder, schedule, overlap checks, and saved bid list.
 - Keep old saved recurring selections visible as legacy multi-date entries instead of silently choosing a date.
@@ -20,13 +26,22 @@ Quality testing and corrective changes are recorded in [QUALITY-REPORT.md](QUALI
 - Keep rows compact; show each leg in aligned columns for flight, origin, destination, local departure/arrival, block, and per-leg time-zone shift. Group by duty date, show daily block totals, and put layover/rest on its own row. Keep the original schedule monospaced without wrapping. Include per diem, trip metrics, ETOPS/deadhead/redeye indicators, and automated bid-check notes.
 - Add region and IANA time-zone metadata for all 90 airport codes found across the seven December 2026 base bid PDFs.
 - Add five selectable, app-defined pairing-only schedule exposure views: Balanced, Recovery opportunity, Night-time schedule, Flights per duty day, and Time-zone change. Show calculation details, unknown-data coverage, score in the Viewer and pairing modal, a ranking influence slider, and persist the selection in saved ranking profiles. This is a comparison aid, not an official or validated fatigue model.
+- Separate hard filters from ranking-only preferences with plain-language headings and effects; preferred duration now appears in the ranking section.
+- Keep abbreviated but visible tab names on phones and announce the selected tab with `aria-current`.
+- Replace implicit whole-row bid addition with explicit, date-labeled Add buttons in both pairing tables; pairing inspection remains a separate keyboard-operable button.
+- Use compact stacked flight-leg cards on phone-sized screens while retaining the aligned itinerary table on wider screens.
+- Add visible focus styling, pairing-dialog focus trapping/restoration, and persistent accessible labels for search, filter, slider, and target controls.
+- Replace the browser prompt for saved ranking profiles with an in-app dialog, blank-name feedback, focus return, and a spoken save confirmation.
 - Display Total Legs by default.
 - Contain wide tables in their own horizontal scroll area so extra columns do not widen the page.
 - Keep columns hideable or showable through the Viewer column chooser and sort credit by its numeric value.
 - Prevent duplicate Viewer filter handlers when pairings are reloaded.
+- Keep favorites independent from bid slots and preserve each recurrence date as a separate favorite choice.
 
 ## Candidate improvements for later work
 
+- Validate the responsive layout, source/details/favorites dialogs, and bid workflow on physical iPhone/iPad Safari with pilots; complete manual keyboard/zoom/VoiceOver checks. Emulated browser runs and scoped axe scans are not a formal accessibility audit.
+- Add optional favorite-list sorting/filtering, a guarded Add-to-bid action, or export/import for moving favorites between devices if bidders want them.
 - Add a compact/detail table toggle to reduce horizontal scrolling on smaller screens.
 - Show each flight's time-zone change in the comparison details, not only the largest shift.
 - Expand and maintain airport metadata as new PDFs contain unmapped destinations.

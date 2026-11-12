@@ -1,11 +1,45 @@
-# Quality test report — November 9, 2026
+# Quality test report — November 11, 2026
 
-Result: **42 self-contained checks passed, 0 failed**. Running with the optional actual-PDF fixture adds one integration check, for **43 passed, 0 failed**.
+## Phone and tablet browser automation — November 11, 2026
+
+- Added a Playwright suite using a synthetic four-date M302W fixture, with eight desktop/phone/tablet size and Chromium/WebKit projects. It checks separate dates and dialogs, explicit date-specific bid addition, favorite persistence/toggle/list/removal, page-wide overflow, JavaScript errors, named table filters, and axe findings in the Details and Favorites dialogs; each run captures Viewer, source, Details, and Favorites screenshots.
+- Added `npm test`, `npm run test:e2e`, and `npm run test:e2e:list`; installed Playwright 1.65.0, axe Playwright 4.14.0, and Chromium/WebKit browser binaries.
+- `npm run test:e2e`: **8 passed, 0 failed** across desktop Chromium/WebKit, iPhone-sized Chromium/WebKit, and iPad portrait/landscape Chromium/WebKit. Each run verified four independent M302W dates, favorite reload persistence, per-date toggles, list removal and Details navigation, responsive modal bounds, date-specific Add, no page-wide horizontal overflow, and no browser JavaScript errors. Details and Favorites dialogs had **0 axe-core violations** in all eight runs.
+- Visual review of saved phone and iPad screenshots identified and fixed floating step arrows over mobile filters, awkward comparison wrapping, the layover-region filter clipping, and header overflow caused by the favorite control. The table now has a swipe hint and contained horizontal scrolling; header status text yields space on small screens while remaining available to screen readers.
+- Existing Node regression suite: **60 passed, 0 failed**; usability pack validation and `git diff --check` passed. `node --check` passed for the Playwright config and test.
+- Added a seventh agent usability task covering discovery, date-specific behavior, persistence, and removal of favorites; the harness now validates **7 tasks and 6 platform profiles**.
+- Evidence is saved under the ignored `test-results/device-usability/` folder. This is browser emulation, not a physical iPhone/iPad or actual iOS Safari session. Human pilot, VoiceOver, iOS file picker, keyboard, and physical touch behavior remain untested.
+
+## Design usability improvements — November 11, 2026
+
+- Split **Remove results** filters from **Change ranking** preferences and moved preferred duration into ranking-only controls.
+- Kept short tab names visible on phones and added accessible names/current-page state.
+- Replaced row-click bid addition with date-labeled **Add** buttons; pairing links are keyboard-operable buttons that still open the source-text modal.
+- Added phone-sized stacked itinerary cards and retained the aligned table at wider widths.
+- Added labeled controls, visible keyboard focus, and focus trapping/restoration for pairing and profile dialogs.
+- Replaced the browser profile-name prompt with an in-app save/cancel dialog, blank-name feedback, overwrite disclosure, and live save confirmation.
+- `node --test tests/quality.test.cjs tests/usability-harness.test.cjs`: **60 passed, 0 failed**. Eight browser profiles and screenshots are now recorded above. No physical iPhone/iPad session, pilot session, or VoiceOver check was performed.
+
+## Expert design and usability review — November 10, 2026
+
+- Reviewed current UI markup and interactions alongside the earlier emulated viewport observations. The local-file page could not be reattached for a fresh screenshot, so this review does not claim new live visual results.
+- Recorded eight prioritized findings in [DESIGN-USABILITY-REVIEW-2026-11-10.md](DESIGN-USABILITY-REVIEW-2026-11-10.md): confusing filter/ranking grouping, tablet clipping and phone nested scrolling, unlabeled mobile navigation, implicit row-click addition, non-semantic table actions, incomplete dialog focus management, missing persistent filter labels, and unclear profile-save feedback.
+- This is an expert heuristic/code review, not a formal WCAG audit or a substitute for pilot feedback. Physical iOS/VoiceOver checks and axe-core remain outstanding.
+
+## Human usability study kit — November 10, 2026
+
+- Added a moderator guide, neutral participant task cards, consent checklist, observation sheet, device/accessibility checklist, and preflight report under `usability/human-study/`.
+- Ran a visible in-app rehearsal: M302W showed four independent dates; the pairing link and Details opened separate modals; selecting December 15 retained that date in Bid Builder. The result rows appeared in the order December 8, 15, 29, 22, which should be checked with bidders.
+- At the narrow in-app viewport (~566 CSS px), ranking controls and Save setup were visible. This is not physical iPhone/iPad validation. Save setup showed no visible confirmation in this session and requires reproduction in a regular browser.
+- `node --test tests/quality.test.cjs tests/usability-harness.test.cjs`: **46 passed, 0 failed**. The usability pack validator, harness syntax check, and `git diff --check` also passed.
+- No human sessions or physical-device sessions were conducted; no axe-core scan was run. Agent rehearsal observations are not human usability findings.
+
+Earlier result: **46 self-contained checks passed, 0 failed** before the November 11 design usability improvements. The optional actual-PDF integration check was not run for that update.
 
 ## Fixes made
 
 - Opening Bid Builder no longer auto-generates and replaces a manually selected or saved list. Auto-Generate remains an explicit action.
-- Both tables now register row clicks through the event API supported by Tabulator 5.5.2. Clicking a date adds that instance; comparison controls do not add bids.
+- Both tables now use explicit Add actions; pairing inspection and comparison controls do not add a bid.
 - Manual additions respect dates selected in GDO Planner even when GDO bid slots have not been generated.
 - Manual addition, auto-fill, and replacement reserve the full trip, including layovers. Another trip cannot be inserted while the pilot is away. Duty dates remain separate for flight workload calculations. The schedule labels layover days.
 - Flights per workday uses the number of days containing flights. M302W is one flight per workday, rather than two flights divided by four calendar days.
@@ -16,19 +50,29 @@ Result: **42 self-contained checks passed, 0 failed**. Running with the optional
 
 - Syntax checks cover every inline application script.
 - Regression checks cover date identities, year rollover, M302W recurrence, duplicate selection, bid limits, GDOs, overlap during layovers, replacement, click registration and dispatch, ranking changes, time-zone offsets, profile persistence/reset, legacy data, and escaped text.
+- Usability harness checks cover task/platform manifest validation, agent/evaluator brief separation, invalid run options, run-bundle creation, and local server allowlisting.
 - The supplied December PDF was extracted with PDF.js 3.11.174 using the app's coordinate-based line reconstruction, then parsed by the application's actual JavaScript.
 - Its 44 pages produce 164 source blocks and 216 distinct operating-date choices. M302W appears on December 8, 15, 22, and 29, 2026.
 - Auto-fill on the actual PDF stays within the current slot, credit, and duration limits and has no overlapping occupied dates.
 
 ## Re-running
 
-Run `node --test tests/quality.test.cjs` from the application folder for the 42 self-contained checks. The harness fixes today's date to November 9, 2026 so the December fixture remains repeatable.
+Run `node --test tests/quality.test.cjs tests/usability-harness.test.cjs` from the application folder for the current 58 self-contained checks. The app suite fixes today's date to November 9, 2026 so the December fixture remains repeatable.
 
 For the additional actual-PDF check, use `tests/extract-pdf.cjs` with a local copy of the PDF.js version used by the app, set `WJA_PDF_TEXT` to the resulting text file, and run the same test command. The extractor's command format is documented at the top of that script.
 
 ## Limits
 
 The application code runs in Node with a small simulated document and table interface for these checks. The PDF extraction library is real. Browser rendering, responsive layout, downloads, and clipboard/popup behavior were not visually exercised: browser automation had blocked access to the local-file page. These checks do not validate the app's simplified rest rules against current regulatory or contractual requirements.
+
+## Agent usability harness — November 10, 2026
+
+- Added six bidder tasks and six desktop, emulated iPhone/iPad, and physical iPhone/iPad Safari profiles.
+- Added a run preparer that separates the agent-facing task brief from evaluator criteria and saves a report template, metadata, and structured findings locally.
+- Added a loopback-by-default server that allowlists only the app page and airport metadata for a physical device on a private LAN.
+- `node --test tests/quality.test.cjs tests/usability-harness.test.cjs`: **46 checks passed, 0 failed**.
+- The harness prepares a session; it does not run an LLM or claim agent findings represent pilot usability. Real-device sessions and pilot validation remain separate evidence.
+- Ran the M302W date/view task and partial comparison, ranking, and layover-filter tasks on phone-, tablet-, and desktop-sized in-app browser viewports. The observations and uncompleted tasks are recorded in [USABILITY-REPORT-2026-11-10.md](USABILITY-REPORT-2026-11-10.md).
 
 ## Modal follow-up — November 10, 2026
 

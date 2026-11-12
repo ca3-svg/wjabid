@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "platforms": [
+    {
+      "id": "desktop-chromium",
+      "mode": "emulated",
+      "device": "Desktop viewport",
+      "browser": "Chrome or Chromium",
+      "viewport": { "width": 1440, "height": 1000, "orientation": "landscape", "touch": false },
+      "notes": "Baseline for dense table comparison, keyboard operation, and browser zoom."
+    },
+    {
+      "id": "iphone-portrait",
+      "mode": "emulated",
+      "device": "iPhone-sized phone",
+      "browser": "Chrome device emulation",
+      "viewport": { "width": 390, "height": 844, "orientation": "portrait", "touch": true },
+      "notes": "Checks narrow layout and touch interaction; does not reproduce iOS Safari or the iOS file picker."
+    },
+    {
+      "id": "ipad-portrait",
+      "mode": "emulated",
+      "device": "iPad-sized tablet",
+      "browser": "Chrome device emulation",
+      "viewport": { "width": 820, "height": 1180, "orientation": "portrait", "touch": true },
+      "notes": "Check table scanning, modal sizing, touch, and portrait layout."
+    },
+    {
+      "id": "ipad-landscape",
+      "mode": "emulated",
+      "device": "iPad-sized tablet",
+      "browser": "Chrome device emulation",
+      "viewport": { "width": 1180, "height": 820, "orientation": "landscape", "touch": true },
+      "notes": "Check the wider table, orientation change, and whether content state is preserved."
+    },
+    {
+      "id": "iphone-safari-real",
+      "mode": "actual-device",
+      "device": "Physical iPhone",
+      "browser": "Safari on iOS",
+      "viewport": null,
+      "notes": "Required for iOS file picker, virtual keyboard, touch behavior, browser storage, and Safari rendering."
+    },
+    {
+      "id": "ipad-safari-real",
+      "mode": "actual-device",
+      "device": "Physical iPad",
+      "browser": "Safari on iPadOS",
+      "viewport": null,
+      "notes": "Check portrait and landscape, Split View if available, touch, external keyboard if commonly used, and file picker."
+    }
+  ]
+}

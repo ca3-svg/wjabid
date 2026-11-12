@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "pairing-date-choices",
+      "title": "Find and distinguish pairing dates and views",
+      "preconditions": ["A December bid PDF has been loaded in a clean browser profile."],
+      "prompt": "Find M302W and tell me every operating date you can choose. Open the pairing number and the separate Details view for one date. Explain what each view helps you see. Do not add anything to a bid.",
+      "successCriteria": [
+        "Every operating date is presented as a separate selectable result row.",
+        "The agent can tell the source-text pairing view apart from structured Details.",
+        "The selected date remains clear in the opened view."
+      ],
+      "riskAreas": ["Merged recurrence dates", "Ambiguous pairing-number versus Details controls", "Date context lost in a modal"]
+    },
+    {
+      "id": "compare-work-and-credit",
+      "title": "Compare credit with daily workload and rest",
+      "preconditions": ["A bid PDF with several pairings and dates has been loaded."],
+      "prompt": "You want good credit while keeping the daily flying light and having generous breaks between flights. Find a few pairings that look promising and explain how you compared them.",
+      "successCriteria": [
+        "The agent can compare credit, legs per duty day, and layover/rest information.",
+        "The agent can distinguish a ranking preference from a filter that removes results.",
+        "The comparison does not hide date-specific choices."
+      ],
+      "riskAreas": ["Metric meaning unclear", "Ranking changes appear unexplained", "Wide table impedes comparison"]
+    },
+    {
+      "id": "adjust-ranking-preferences",
+      "title": "Try and save a ranking preference",
+      "preconditions": ["A bid PDF with multiple results has been loaded."],
+      "prompt": "Try a preference for roughly one flight per duty day and long breaks between flights. Adjust the ranking until the results feel closer to what you want, then save that setup and find it again.",
+      "successCriteria": [
+        "The agent can discover and change the relevant ranking targets or weights.",
+        "The app makes the effect on order understandable.",
+        "A saved preference can be named or selected again without losing its settings."
+      ],
+      "riskAreas": ["Controls are hard to find", "Weight and hard-filter behavior confused", "Profile persistence unclear"]
+    },
+    {
+      "id": "layover-and-timezone-preferences",
+      "title": "Find preferred layover regions and time-zone context",
+      "preconditions": ["A bid PDF containing multiple destination regions has been loaded."],
+      "prompt": "You prefer Caribbean or nearby time zones and want to know which pairings have a US or Caribbean layover. Find and compare options, including anything the app cannot determine.",
+      "successCriteria": [
+        "The agent can find region filters or indicators for US and Caribbean layovers.",
+        "Known and unknown time-zone information are distinguishable.",
+        "Unknown data is not presented as a fabricated zero shift."
+      ],
+      "riskAreas": ["Region labels are unclear", "Unknown data looks like a known value", "Filter state is not visible"]
+    },
+    {
+      "id": "build-a-date-specific-bid",
+      "title": "Build a bid with specific dates",
+      "preconditions": ["A bid PDF has been loaded and bid limits are set for a test session."],
+      "prompt": "Add two pairing choices on dates that work for you to a sample bid. Check whether they conflict, and if one cannot be added, work out why. Leave the final bid in the app for review.",
+      "successCriteria": [
+        "The selected pairing date is visible in the bid list.",
+        "The app explains overlap or bid-limit problems in terms the bidder can act on.",
+        "The bid list remains understandable after switching tabs or reopening the builder."
+      ],
+      "riskAreas": ["Wrong recurrence date added", "Conflicts are opaque", "Selections appear lost after navigation"]
+    },
+    {
+      "id": "save-a-pairing-favorite",
+      "title": "Save and revisit one pairing date",
+      "preconditions": ["A bid PDF with a pairing that operates on multiple dates has been loaded."],
+      "prompt": "You may want to compare one date for this pairing later. Save the December 8 M302W choice as a favorite, then find it again and inspect its Details. Make sure your other M302W dates remain separate choices.",
+      "successCriteria": [
+        "The bidder can discover the star control and tell whether the selected date is favorited.",
+        "The Favorites list shows the chosen operating date and useful pairing information.",
+        "Favoriting one recurrence does not favorite other dates or add the pairing to a bid.",
+        "The bidder can open Details and remove the favorite without confusion."
+      ],
+      "riskAreas": ["Favorite applies to all recurring dates instead of the selected date", "Header star meaning or count is unclear", "Favorite is confused with adding a pairing to a bid", "Saved favorites are lost after reload"]
+    },
+    {
+      "id": "mobile-load-and-return",
+      "title": "Load a bid and return to it on a mobile device",
+      "preconditions": ["A redacted or synthetic test PDF is available in the device's Files app."],
+      "prompt": "On this device, load the sample bid PDF, find a pairing, open its Details, then leave and return to the app. Tell me what was easy, difficult, or missing.",
+      "successCriteria": [
+        "The device file picker makes the test PDF discoverable.",
+        "The user can read the pairing list and Details without losing key content to clipping or accidental page-wide scrolling.",
+        "The user can tell whether loaded data remains available after leaving and returning."
+      ],
+      "riskAreas": ["File picker friction", "Responsive layout breaks during interaction", "Storage persistence or reload feedback unclear"]
+    }
+  ]
+}
